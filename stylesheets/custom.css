@@ -1,0 +1,76 @@
+/* line 7, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+body {
+  background-image: none; }
+
+/* line 11, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .slides > section,
+.reveal .slides > section > section {
+  font-size: 1.15em; }
+/* line 15, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal h1 {
+  font-size: 2.60em; }
+/* line 19, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .highlight {
+  padding: 1.2em 0.6em; }
+/* line 23, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: -32px; }
+  /* line 30, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+  .reveal .grid:before, .reveal .grid:after {
+    content: " ";
+    display: table; }
+  /* line 35, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+  .reveal .grid:after {
+    clear: both; }
+/* line 40, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .grid__item {
+  display: block;
+  float: left;
+  padding-left: 32px;
+  vertical-align: top;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+/* line 51, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .grid__item pre {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0; }
+/* line 59, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .one-whole {
+  width: 100%; }
+/* line 61, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .one-half {
+  width: 50%; }
+/* line 63, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .one-third {
+  width: 33.333%; }
+/* line 64, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal .two-thirds {
+  width: 66.666%; }
+/* line 67, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal table {
+  margin: 0 auto; }
+/* line 68, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal th {
+  font-weight: bold; }
+/* line 69, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal th, .reveal td {
+  padding: 0 64px; }
+/* line 71, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal blockquote {
+  border: none;
+  box-shadow: none;
+  text-align: left; }
+/* line 77, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal blockquote + figcaption {
+  width: 80%;
+  margin: 20px auto;
+  text-align: left; }
+/* line 83, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+.reveal pre code {
+  max-height: 500px; }

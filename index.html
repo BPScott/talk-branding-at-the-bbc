@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Structuring CSS</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Ben Scott">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="reveal/css/reveal.min.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="reveal/css/theme/sky.css" id="theme" media="screen" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/custom.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <!-- For syntax highlighting -->
+    <link href="stylesheets/syntax.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="reveal/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+  <h1>Structuring CSS</h1>
+  <p>
+    <small>Ben Scott / <a href="http://twitter.com/BPScott">@BPScott</a></small>
+  </p>
+</section>
+
+
+<section>
+  <h2>Who?</h2>
+
+  <ul>
+    <li>Web Developer @ <a href="http://www.bbc.co.uk/programmes">bbc.co.uk/programmes</a></li>
+    <li>Sass-junkie</li>
+    <li>Approaching the 4th stage of knowing CSS</li>
+  </ul>
+</section>
+
+
+<section>
+  <div class="block-cite">
+    <figure>
+    <blockquote cite="https://twitter.com/cackhanded/status/358721135677935616">
+      <p>The four stages of CSS:</p>
+      <ol><li>I don’t know CSS.</li>
+      <li>I know enough CSS to get by.</li>
+      <li>I _know_ CSS.</li>
+      <li>Fuck CSS.</li></ol></blockquote>
+    <figcaption>&mdash; <a href="https://twitter.com/cackhanded/status/358721135677935616">@cackhanded</a></figcaption>
+  </figure>
+  </div>
+  <aside class="notes">
+    Harry Roberts put this less swearily:
+    "The better you get a writing code then the less you want to write"
+  </aside>
+</section>
+
+<section>
+  <h2>CSS is Easy</h2>
+<pre class="highlight scss"><span class="nc">.selector</span> <span class="p">{</span>
+  <span class="na">property</span><span class="p">:</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></section>
+
+
+<section>
+  <h2>Managing CSS is Hard</h2>
+<pre class="highlight scss"><span class="nc">.selector</span> <span class="p">{</span>
+  <span class="na">property</span><span class="p">:</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.another-selector</span> <span class="p">{</span>
+  <span class="na">another-property</span><span class="p">:</span> <span class="n">another-value</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.am-i-related-to-that-stuff-above</span> <span class="p">{</span>
+  <span class="na">seriously</span><span class="p">:</span> <span class="s1">'who knows'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nn">#tlec</span> <span class="nc">.col-b</span> <span class="nn">#more-tleo-promo</span> <span class="nc">.promo-entry</span> <span class="p">{</span>
+  <span class="na">oh-god</span><span class="p">:</span> <span class="s1">'this is really paranoid'</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+  <aside class="notes">
+    /programmes is a long-lived project that continue to grow.
+  </aside>
+</section>
+
+
+<section>
+  <h2>Why is it so hard?</h2>
+
+  <ul>
+    <li>People write new CSS for everything.</li>
+    <li>Everything goes into the global scope.</li>
+    <li>Not inherently obvious how selectors interrelate.</li>
+  </ul>
+
+  <aside class="notes">
+    New css is written because people don't feel safe extending what is already
+    there - because they don't know what it shall affect.
+
+    This is a superconducting loop for creating a goldmine of technical debt.
+    Bad CSS means you don't want to touch it, which means you write new css,
+    which you then don't want to touch for maintainance later down the line.
+
+    It's difficult to be confident that you're not changing anything unexpected
+  </aside>
+</section>
+
+<section>
+  <h2>Build Smaller,<br>Isolated Things</h2>
+</section>
+
+
+<section>
+  <h2>Single Responsibility</h2>
+  <p>Do one thing and do it well</p>
+</section>
+
+
+<section>
+  <h2>Single Responsibility</h2>
+
+  <div class="grid">
+    <div class="grid__item one-third">Components</div>
+    <div class="grid__item one-third">Macro-layout</div>
+    <div class="grid__item one-third">Theming</div>
+  </div>
+
+  <aside class="notes">
+    <p>Everything you create broadly fits into one of three buckets:</p>
+    <ul>
+      <li>Component: Most things, flexible, 100% width, positioning of elements.</li>
+      <li>Macro-layout: Defining the layout of Components within a page.</li>
+      <li>Theming: colors for Components.</li>
+    </ul>
+
+    These types are then brought together - I want this component, with this
+    coloring in a space this big.
+  </aside>
+</section>
+
+
+<section>
+  <h2>Composition</h2>
+  <p>Create Lego bricks to clip together</p>
+</section>
+
+
+<section>
+  <h2>Be Additive</h2>
+  <p>Mobile first &amp; extend from core functionality</p>
+
+  <aside class="notes">
+    Avoid writing CSS that undoes other CSS.
+
+    A component can have variations. Keep the core functionality but use
+    additional classes to enable variations.
+  </aside>
+</section>
+
+
+<section>
+  <h2>Build Bottom Up</h2>
+  <p>Base Styles &rarr; Components &rarr; Pages</p>
+
+  <aside class="notes">
+    Traditionally we've always thought of whole pages, instead think of items
+    that just happen to be placed on the page in a particular order.
+
+    By decoupling your components from the hierarchy it is placed in then you
+    allow your components to be used anywhere.
+
+    Low specificity selectors so they can be easily overridden if needed.
+    No IDs, try and keep below 3 levels of nesting.
+
+    Brad Frost's pattern-lab concept
+  </aside>
+</section>
+
+
+<section>
+  <h2>Naming Conventions</h2>
+  <p>Give hints about how elements interrelate</p>
+</section>
+
+
+<section>
+  <h2>BEM</h2>
+
+<pre class="highlight html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;media media--right&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;media__img&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;cats.gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;media__body&quot;</span><span class="nt">&gt;</span>
+    Now you've got a hint that I belong to
+    the media block when reading HTML
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre>
+  <aside class="notes">
+    * Keeps specificity low as usually you're only defining a single class
+    * Reduces cognitive load as you can easily see what base object a sub-element
+    belongs to
+  </aside>
+</section>
+
+
+<section>
+  <h2>&larr; Input<br><br>Output &rarr;</h2>
+</section>
+
+
+<section>
+  <h2>Some Problems</h2>
+
+  <ol>
+    <li>I want keep an object's code all in one file</li>
+    <li>I want to build mobile-first</li>
+    <li>I want oldIE to have wide styles</li>
+  </ol>
+
+  <aside class="notes">
+    For /programmes we migrated from multiple to all+oldIE. We started
+    with basic/wide styles but this meant that we had to compromise on
+    "mobile-first" - the basic styles were mobile first but for wide styles we
+    had to be desktop-first - switching between those two modes of thinking is a
+    pain.
+
+    Potential solutions:
+
+    RespondJS: Requires JS, Forces slow, old browsers to do even more work. Poor UX.
+    Build desktop-first: Requires writing more CSS to undo desktop styles.
+    Bespoke Mixin: Tied to a project's needs - I want a generic solution.
+  </aside>
+</section>
+
+
+<section>
+  <h2>Breakup</h2>
+
+  <ul>
+    <li>Define blocks of CSS using mixins</li>
+    <li>Optionally wrapped in media queries</li>
+    <li>Output per-breakpoint stylesheets</li>
+    <li>Output oldIE stylesheets</li>
+    <li><a href="http://github.com/BPScott/breakup">github.com/BPScott/breakup</a></li>
+  </ul>
+
+  <aside class="notes">
+    Available as a compass plugin or standalone.
+
+    1) Wrap css in a block to toggle what gets output
+    2) Wrap css in a block to wrap it in a media query (or not)
+  </aside>
+</section>
+
+
+<section>
+  <h2>Defining Breakpoints</h2>
+<pre class="highlight scss"><span class="c1">// _global_variables.scss
+</span><span class="nv">$breakup-breakpoints</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s1">'thin'</span> <span class="s1">'(max-width: 35.999em)'</span><span class="o">,</span>
+  <span class="s1">'wide'</span> <span class="s1">'(min-width: 36em)'</span><span class="o">,</span>
+  <span class="s1">'full'</span> <span class="s1">'(min-width: 61em)'</span>
+<span class="p">);</span>
+</pre>
+  <aside class="notes">
+    Wrapping everything in a two mixins is a bit repetitive and you shall share
+    breakpoints across many components. Let's DRY this out by adding a breakpoint lookup table.
+  </aside>
+</section>
+
+<section>
+  <h2>A Component</h2>
+
+<pre class="highlight scss"><span class="c1">// _component.scss
+</span><span class="k">@include</span> <span class="nd">breakup-block</span><span class="p">(</span><span class="s1">'basic'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span> <span class="nl">content</span><span class="p">:</span> <span class="s1">'From basic'</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@include</span> <span class="nd">breakup-breakpoint</span><span class="p">(</span><span class="s1">'thin'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span> <span class="nl">content</span><span class="p">:</span> <span class="s1">'From thin'</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@include</span> <span class="nd">breakup-breakpoint</span><span class="p">(</span><span class="s1">'wide'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span> <span class="nl">content</span><span class="p">:</span> <span class="s1">'From wide'</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></section>
+
+
+<section>
+  <h2>A Single Output File</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">
+  <pre class="highlight scss">
+<span class="c1">// example_allblocks.scss
+</span><span class="k">@import</span> <span class="s1">'breakup'</span><span class="p">;</span>
+<span class="nv">$breakup-included-blocks</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s1">'basic'</span>
+  <span class="s1">'thin'</span>
+  <span class="s1">'wide'</span>
+  <span class="s1">'full'</span>
+<span class="p">);</span>
+
+<span class="k">@import</span> <span class="s1">'global_variables'</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s1">'component'</span><span class="p">;</span>
+</pre>    </div>
+     <div class="grid__item one-half">
+  <pre class="highlight scss">
+<span class="c1">// example_allblocks.css
+</span><span class="nc">.component</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">'From basic'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="o">(</span><span class="nt">max-width</span><span class="nd">:</span> <span class="nt">35</span><span class="nc">.999em</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">'From thin'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="nd">:</span> <span class="nt">36em</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">'From wide'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre>    </div>
+  </div>
+
+  <aside class="notes">
+    This is your standard 'best-case' scenario.
+  </aside>
+</section>
+
+
+<section>
+  <h2>Per-Size Output Files</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">
+  <pre class="highlight scss">
+<span class="c1">// example_wideonly.scss
+</span><span class="k">@import</span> <span class="s1">'breakup'</span><span class="p">;</span>
+<span class="nv">$breakup-included-blocks</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s1">'wide'</span>
+<span class="p">);</span>
+
+<span class="k">@import</span> <span class="s1">'global_variables'</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s1">'component'</span><span class="p">;</span>
+</pre>    </div>
+     <div class="grid__item one-half">
+  <pre class="highlight scss">
+<span class="c1">// example_wideonly.scss
+</span><span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="nd">:</span> <span class="nt">36em</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">'From wide'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre>    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>OldIE Output Files</h2>
+
+  <div class="grid" style="font-size: 0.95em;">
+    <div class="grid__item one-half">
+  <pre class="highlight scss">
+<span class="c1">// example_oldie.scss
+</span><span class="k">@import</span> <span class="s1">'breakup'</span><span class="p">;</span>
+
+<span class="nv">$breakup-included-blocks</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s1">'basic'</span>
+  <span class="s1">'wide'</span>
+<span class="p">);</span>
+<span class="nv">$breakup-naked</span><span class="p">:</span> <span class="n">true</span><span class="p">;</span>
+<span class="nv">$breakup-breakpoints-allow-naked</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s1">'wide'</span>
+<span class="p">);</span>
+
+<span class="k">@import</span> <span class="s1">'global_variables'</span><span class="p">;</span>
+<span class="k">@import</span> <span class="s1">'component'</span><span class="p">;</span>
+</pre>    </div>
+     <div class="grid__item one-half">
+  <pre class="highlight scss">
+<span class="nc">.component</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">'From basic'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.component</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s1">'From wide'</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Blocks</h2>
+
+<pre class="highlight scss"><span class="nv">$breakup-included-blocks</span><span class="p">:</span> <span class="p">(</span><span class="s1">'basic'</span><span class="o">,</span> <span class="s1">'thin'</span><span class="p">);</span>
+
+<span class="k">@mixin</span> <span class="nf">breakup-block</span><span class="p">(</span><span class="nv">$block-name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">@if</span> <span class="nf">index</span><span class="p">(</span><span class="nv">$breakup-included-blocks</span><span class="o">,</span> <span class="nv">$block-name</span><span class="p">)</span> <span class="o">!=</span> <span class="n">false</span> <span class="p">{</span>
+    <span class="k">@content</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@include</span> <span class="nd">breakup-block</span><span class="p">(</span><span class="s1">'basic'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.a</span> <span class="p">{</span> <span class="nl">content</span><span class="p">:</span> <span class="s1">'I shall be output'</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@include</span> <span class="nd">breakup-block</span><span class="p">(</span><span class="s1">'wide'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.b</span> <span class="p">{</span> <span class="nl">content</span><span class="p">:</span> <span class="s1">'I shall *not* be output'</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></section>
+
+<section>
+  <h2>Media Query Wraps</h2>
+<pre class="highlight scss"><span class="nv">$breakup-included-blocks</span><span class="p">:</span> <span class="p">(</span><span class="s1">'basic'</span><span class="o">,</span> <span class="s1">'thin'</span><span class="p">);</span>
+<span class="nv">$breakup-naked</span><span class="p">:</span> <span class="n">false</span><span class="p">;</span>
+
+<span class="k">@mixin</span> <span class="nf">breakup-media</span><span class="p">(</span><span class="nv">$declaration</span><span class="o">,</span> <span class="nv">$allow-naked</span><span class="o">:</span> <span class="n">false</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">@if</span> <span class="ow">not</span> <span class="nv">$breakup-naked</span> <span class="p">{</span>
+    <span class="k">@media</span> <span class="si">#{</span><span class="nv">$declaration</span><span class="si">}</span> <span class="p">{</span> <span class="k">@content</span><span class="p">;</span> <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">@else</span> <span class="p">{</span>
+    <span class="k">@if</span> <span class="nv">$allow-naked</span> <span class="o">==</span> <span class="n">true</span> <span class="p">{</span> <span class="k">@content</span><span class="p">;</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@include</span> <span class="nd">breakup-media</span><span class="p">(</span><span class="s1">'(min-width: 36em)'</span><span class="o">,</span> <span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.c</span> <span class="p">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">'I am wrapped in a MQ'</span><span class="p">;</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">'unless $breakup-naked is true'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></section>
+
+
+<section>
+  <h2>Breakpoints</h2>
+
+<pre class="highlight scss"><span class="k">@mixin</span> <span class="nf">breakup-breakpoint</span><span class="p">(</span><span class="nv">$breakpoint-name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Not a real function
+</span>  <span class="nv">$mq-declaration</span><span class="p">:</span> <span class="nf">find-mq-from-name</span><span class="p">(</span><span class="nv">$breakpoint-name</span><span class="p">);</span>
+
+  <span class="k">@include</span> <span class="nd">breakup-block</span><span class="p">(</span><span class="nv">$breakpoint-name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">@include</span> <span class="nd">breakup-media</span><span class="p">(</span><span class="nv">$mq-declaration</span><span class="o">,</span> <span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">@content</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+
+</section>
+
+
+<section>
+  <h2>Tweakpoints</h2>
+
+  <div class="grid">
+    <div class="grid__item one-whole">
+  <pre class="highlight scss">
+<span class="c1">// _component.scss
+</span><span class="k">@include</span> <span class="nd">breakup-tweakpoint</span><span class="p">(</span><span class="s1">'(min-width: 45em)'</span><span class="o">,</span> <span class="s1">'wide'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.component</span> <span class="p">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s1">'From tweakpoint within wide'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Equivalent to:
+</span><span class="k">@include</span> <span class="nd">breakup-block</span><span class="p">(</span><span class="s1">'wide'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">@include</span> <span class="nd">breakup-media</span><span class="p">(</span><span class="s1">'(min-width: 45em)'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nc">.component</span> <span class="p">{</span>
+      <span class="nl">content</span><span class="p">:</span> <span class="s1">'From tweakpoint within wide'</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>TL;DR</h2>
+
+  <ul>
+    <li>Keep it simple</li>
+    <li>Build small isolated components</li>
+    <li>Hint how elements within an object are related</li>
+    <li>Split your output stylesheets for oldIE</li>
+  </ul>
+</section>
+
+
+<section>
+  <h2>Link Dump</h2>
+  <ul>
+    <li><a href="https://github.com/BPScott/breakup">Breakup</a></li>
+    <li><a href="http://bradfrostweb.com/blog/post/atomic-web-design/">Atomic Design</a></li>
+    <li><a href="http://csswizardry.com/2013/05/scope-in-css/">Scope in CSS</a></li>
+    <li><a href="http://www.youtube.com/watch?v=ldx4ZFxMEeo&hd=1">Normalising Designs for Better Quality CSS</a></li>
+  </ul>
+</section>
+
+
+<section>
+  <h1>Thank You</h1>
+
+  <h3>Any Questions?</h3>
+  <p>
+    <small>Ben Scott / <a href="http://twitter.com/BPScott">@BPScott</a></small>
+  </p>
+
+    <p>
+    <small><a href="http://www.reload.me.uk/talk-structuring-css">reload.me.uk/talk-structuring-css</a></small>
+  </p>
+</section>
+
+      </div>
+    </div>
+
+    <script src="reveal/lib/js/head.min.js" type="text/javascript"></script>
+    <script src="reveal/js/reveal.min.js" type="text/javascript"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+
+        transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+  </body>
+</html>
