@@ -1,0 +1,551 @@
+---
+title: Branding at the BBC
+author: Ben Scott
+theme: sky
+theme_highlight: zenburn
+transition: none
+---
+
+<section>
+  <h1>Branding</h1>
+  <p>
+    <small>Ben Scott / <a href="http://twitter.com/BPScott">@BPScott</a></small>
+  </p>
+
+  <aside class="notes">
+    What is branding? The look and feel of your site, the tone of voice you
+    write in. How the user feels when interacting with your site. All these
+    things are important and you can give them enormous attention when you're
+    cultivating a single brand. But what if your attention is divided, what if
+    instead of building one brand you have to be maintain a multitude of
+    brands...
+  </aside>
+</section>
+
+<section data-background="images/the-musketeers.png" data-background-size="contain"></section>
+<section data-background="images/womans-hour.png" data-background-size="contain"></section>
+<section data-background="images/the-wrong-trousers.png" data-background-size="contain"></section>
+<section data-background="images/old-jews-telling-jokes.png" data-background-size="contain"></section>
+<section data-background="images/glastonbury-events.png" data-background-size="contain"></section>
+<section data-background="images/doctor-who.png" data-background-size="contain"></section>
+
+<section>
+  <h2>Who?</h2>
+
+  <ul>
+    <li>Senior Web Developer @ <a href="http://www.bbc.co.uk/programmes">bbc.co.uk/programmes</a></li>
+    <li>Sass-wrangler</li>
+    <li>Getting a bit typecast</li>
+  </ul>
+
+  <aside class="notes">
+    <p>/programmes isn't a brand in its own right - it is a showcase for other
+    brands. People don't go and brows /programmes, they browse Doctor Who or Strictly.
+    Getting a bit typecast: Used to work for ITV building their programme sites
+  </p>
+    <p>Today I'm going to talk about how to create CSS that can be easily themed,
+      and how the BBC's solution to dealing with all its brand</p>
+  </aside>
+</section>
+
+<section>
+  <h2>CSS Responsibilities</h2>
+
+  <div class="grid">
+    <div class="grid__item one-third">Components</div>
+    <div class="grid__item one-third">Macro-layout</div>
+    <div class="grid__item one-third">Theming</div>
+  </div>
+
+  <aside class="notes">
+    <p>Everything you create broadly fits into one of three buckets:</p>
+    <ul>
+      <li>Component: Most things, flexible, 100% width, positioning of elements.</li>
+      <li>Macro-layout: Defining the layout of Components within a page.</li>
+      <li>Theming: colors for Components.</li>
+    </ul>
+
+    <p>These types are then brought together - I want this component, with this
+    coloring in a space this big.</p>
+
+    <p>Branding is predominantly the Theming section (and possibly a bit of
+    macro-layout for common typography). To create something themeable we need
+    to abstract our code slightly and define a design system.</p>
+  </aside>
+</section>
+
+
+<section>
+  <h2>Design Systems</h2>
+
+<% code 'scss' do %>
+// _thing.scss
+.thing {
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 4px;
+  color: #f54997;
+}
+<% end %>
+
+  <aside class="notes">
+    <p>A Design System is the specification of the standard patterns that
+      exist within an application.</p>
+    <p>Take this thing object for instance, you can't tell from this single
+      contrived example, but imagine that the font sizing and coloring depicted
+      here are both standard patterns that are repeated throughout your codebase.
+      These should be abstracted so we don't end up repeating the implementation
+      details all the time</p>
+  </aside>
+</section>
+
+
+<section>
+  <h2>Design Systems</h2>
+
+  <p>"Thing is heading-3 and has highlight-color text"</p>
+
+  <aside class="notes">
+    <ul>
+    <li>This simplifies interaction with designers as you no longer have to
+    explicitly define and repeat concepts everywhere.</li>
+    <li>Common, shared language makes for much more efficient communication by
+      reducing the need to repeat details across multiple objects.</li>
+    <li>Reduces scope for mistakes and makes your css easier to write.</li>
+  </ul>
+  </aside>
+</section>
+
+<section>
+  <h2>Design Systems</h2>
+
+<% code 'scss' do %>
+// _variables.scss
+$highlight-color: #f54997;
+
+// _common-typography.scss
+%heading-3 {
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 4px;
+}
+
+// _thing.scss
+.thing {
+  @extend %heading-3;
+  color: $highlight-color;
+}
+<% end %>
+
+  <aside class="notes">
+    <p>
+      Now there is one place to change common values. Create a new output file
+      with different values for your variables and you have a new theme. This is
+      what we did at ITV. It worked well because:
+    </p>
+    <ul>
+      <li>1 micro-site per TV show</li>
+      <li>For important shows we could create a new theme</li>
+      <li>For lesser shows editorial could choose between a range of predefined
+      themes</li>
+      <li>Great if you're a single application made by a single team</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h2>&larr; General<br><br>BBC &rarr;</h2>
+
+  <aside class="notes">
+    <p>Unfortunately this isn't great for the /programmes' corner of the BBC as we
+      have some fairly specific needs</p>
+
+    <ul>
+      <li>Editorial can call upon any site to be branded or have their branding
+        updated at any time so requiring developer work to maintain the themes
+        doesn't scale. We're a team of only 3 developers, we don't have the time
+        to dedicate to that sort of work.</li>
+      <li>Brandings have to be shared across multiple codebases e.g. The
+        Glastonbury theme is shared between /events and /programmes. App teams
+        should not need to coordinate releases.</li>
+      <li>BBC Branding isn't just a color scheme, it also includes a common
+        header - HTML in addition to CSS</li>
+      <li>Thus Branding needs to be something that sits above the applications,
+        within a central data-store that is editorially controlled, not as part
+        of each application, controlled by developers.</li>
+    </ul>
+
+    <p>So what constitutes a BBC Brand?</p>
+</section>
+
+<section>
+  <h2>BBC Branding</h2>
+
+  <div class="grid">
+    <div class="grid__item one-third">Color Scheme</div>
+    <div class="grid__item one-third">Imagery</div>
+    <div class="grid__item one-third">Masthead</div>
+  </div>
+
+  <aside class="notes">
+    <p>BBC Branding is split into three parts</p>
+
+    <ul>
+      <li>Color Scheme: text, background and link colors split into 4 palettes.</li>
+      <li>Imagery: logos and background images. For instance the whole-page
+        background image. As that isn't always visible on smaller screens we
+        provide the option to change these images at three sizes so smartphones
+        and tablet sized viewports don't need to download unused data.</li>
+      <li>Masthead / variant config: defines a shared header and any specific
+        options such as show / hide radio navigation. Multiple configurations
+        exist e.g. programme branding vs event branding.</li>
+    </ul>
+
+    <p>Editorial can create a theme by using the branding admin application</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Creating a theme</h2>
+
+  <ul>
+    <li>A big web form</li>
+    <li>It stores data in the branding database</li>
+    <li>Seriously, it's really boring</li>
+  </ul>
+
+  <aside class="notes">
+    <ul>
+      <li>Editorial staff create a theme, give it an ID and fill out all the
+        variables that we have defined as part of our design system (such as
+        page-text-color, page-background-color or page-background-image-large)</li>
+      <li>This creates a theme, which they can then reference in the /programmes
+        CMS to link a programme id with a branding id. They can then do the same
+        in the /events CMS.</li>
+      <li>Multiple versions of a theme can be created, but only one can is
+        published at any one time. This allows a degree of revision control so editorial can preview their changes before publishing a brand and allow
+        them to revert to an older version</li>
+      <li>Validation is applied to coloring to ensure color contrast passes
+        the Web Content Accessibility AA guidelines so we can ensure
+        page-text-color is readable on page-background-color.</li>
+      <li>In the future we should add more validation around performance to
+        stop people using excessively large background images</li>
+    </ul>
+
+    <p>So how does an application get hold of a theme?</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Embedding a Theme</h2>
+
+  <ul>
+    <li>A stylesheet to add to your &lt;head&gt;</li>
+    <li>A HTML fragment to add above your app content</li>
+    <li>A HTML fragment to add below your app content</li>
+  </ul>
+
+  <aside class="notes">
+    <p>An application requests the branding of 'musketeers' from the central
+      branding application which will then return a data object containing 3 things</p>
+    <p>HTML fragments are easy to understand - they include the shared masthead
+      and wrapper divs, so lets look closer at the stylesheet</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Stylesheet URL</h2>
+
+<% code 'html' do %>
+http://www.bbc.co.uk/modules/
+branding/css/1_5_0/musketeers-1392728488.css
+<% end %>
+
+<aside class="notes">
+  <ul>
+    <li>Contents of URL: branding name, branding version</li>
+    <li>Those two items combine with the app version to create a URL whose
+      contents will never change, so it can have long expiry headers</li>
+    <li>One URL shared across all apps who implement branding</li>
+  </ul>
+
+  <p>What's in this stylesheet?</p>
+</aside>
+</section>
+
+
+<section>
+  <h2>Color Scheme</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">.br-box-page</div>
+    <div class="grid__item one-half">.br-box-subtle</div>
+    <div class="grid__item one-half">.br-box-highlight</div>
+    <div class="grid__item one-half">.br-box-secondary</div>
+  </div>
+
+  <aside class="notes">
+    <ul>
+      <li>I mentioned earlier that we provide 4 color palettes - we've named
+        them page, highlight, subtle and secondary.</li>
+      <li>Each palette contains a text color, background color, link color and
+        link hover color definition</li>
+      <li>These are exposed as as set of CSS classes that shall render a box
+      using the relevant color variables</li>
+    </ul>
+    <p>So for instance the code that builds the br-box-page class hooks looks
+      like this:</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Color Scheme</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">
+  <% code 'php' do %>
+<?php /* common.css.php */ ?>
+.br-box-page {
+  color: <?=$branding->page_text_color?>;
+  background-color: <?=$branding->page_bg_color?>;
+}
+
+.br-box-page a {
+  color: <?=$branding->page_link_color?>;
+}
+
+.br-box-page a:hover {
+  color: <?=$branding->page_link_hover_color?>;
+}
+<% end %>
+    </div>
+     <div class="grid__item one-half">
+  <% code 'css' do %>
+.br-box-page {
+  color: #333333;
+  background-color: #dddddd;
+}
+
+.br-box-page a {
+  color: #0000dd;
+}
+
+.br-box-page a:hover {
+  color: #0000ff;
+}
+<% end %>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <ul>
+      <li>Yeah it's some php that generates CSS, please don't judge us too
+        harshly</li>
+      <li>We can see there that the box's color and background color are being set
+        based on our design system variables along with the link colors within the box</li>
+    </ul>
+
+    <p>The application that is implementing branding can then use this css like
+      so:</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Color Scheme</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">
+  <% code 'html' do %>
+<div class="br-box-page">
+  <p>
+    Hello there,
+    here is a <a href="#">link</a>
+  </p>
+</div>
+<% end %>
+    </div>
+     <div class="grid__item one-half">
+      <div class="demo-next-to-highlight">
+        <div class="br-box-page">
+          <p>
+            Hello there, here is a <a href="#">link</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <ul>
+      <li>Exposing the color schemes as classes is suspiciously simple, but it
+        sucessfully covers 90% of use-cases.</li>
+      <li>It can feel a little restrictive, but we have to do this at an
+      high, abstract level as otherwise we risk adding too specific hooks for things that only apply to a single application.</li>
+      <li>The alternative to this is for applications to send CSS with variables in
+        them to be pre-processed by the branding application.
+        We did this in V1 of branding, but it is a lot of complication that is
+        never actually needed.</li>
+    </ul>
+    <p>For when we want something out of the ordinary, we provide more specific
+      class hooks to explicitly push a color variable onto a particular property</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Color Scheme</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">
+  <% code 'php' do %>
+<?php /* common.css.php */ ?>
+.br-page-bg-ontext {
+  color: <?=$branding->page_bg_color?>;
+}
+
+.br-page-link-onbg {
+  background-color: <?=$branding->page_link_color?>;
+}
+
+.br-page-linkhover-onbg--hover:hover {
+  background-color: <?=$branding->page_link_hover_color?>;
+}
+<% end %>
+    </div>
+    <div class="grid__item one-half">
+  <% code 'css' do %>
+.br-page-bg-ontext {
+  color: #dddddd;
+}
+
+.br-page-link-onbg {
+  background-color: #0000dd;
+}
+
+.br-page-linkhover-onbg--hover:hover {
+  background-color: #0000ff;
+}
+<% end %>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <ul>
+      <li>So for instance we can push the page background color variable onto
+        the text color and push the page link color onto the background color.</li>
+      <li>Or even push the link hover color onto the background but only when hovering</li>
+    </ul>
+
+    <p>This can be used for things like creating inverted boxes, or block
+      style links:</p>
+  </aside>
+</section>
+
+<section>
+  <h2>Color Scheme</h2>
+
+  <div class="grid">
+    <div class="grid__item one-half">
+  <% code 'html' do %>
+<div class="br-box-page">
+  <p>Regular box</p>
+</div>
+<div class="br-page-bg-ontext
+br-page-text-onbg">
+  <p>Inverted styles</p>
+</div>
+<div class="br-page-bg-ontext
+br-page-link-onbg
+br-page-linkhover-onbg--hover">
+  <p>Block link</p>
+</div>
+<% end %>
+    </div>
+     <div class="grid__item one-half">
+      <div class="demo-next-to-highlight">
+        <div class="br-box-page">
+          <p>
+            Regular box
+          </p>
+        </div>
+        <div class="br-page-bg-ontext br-page-text-onbg">
+          <p>
+            Inverted styles
+          </p>
+        </div>
+
+        <div class="br-page-bg-ontext br-page-link-onbg br-page-linkhover-onbg--hover">
+          <p>
+            Block link
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>Useful to provide variety and cover all possible variations, but the idea
+      is that applications should be able to do the majority of things with the
+      regular box classes.</p>
+  </aside>
+</section>
+
+
+<section data-background="images/the-musketeers.png" data-background-size="contain">
+  <aside class="notes">
+    <p>So if put that all together:</p>
+
+    <ul>
+      <li>Masthead: providing title, service logo, navigation bar</li>
+      <li>Media Availability Panel (top boxes): br-box-secondary</li>
+      <li>Primary column: br-box-page background which fades to match the whole
+        page background</li>
+    </ul>
+
+    <p>And then if we scroll down, so we can see more of the page</p>
+  </aside>
+
+</section>
+
+<section data-background="images/the-musketeers-2.png" data-background-size="contain">
+  <aside class="notes">
+    <ul>
+      <li>Primary column: br-box-page background</li>
+      <li>Secondary column: no background</li>
+      <li>Secondary components: br-box-highlight heading and br-box-subtle content</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h2>TL;DR</h2>
+
+  <ul>
+    <li>Formalise your design system</li>
+    <li>Implement reusable abstractions</li>
+    <li>You probably don't need to do something so dang complicated</li>
+  </ul>
+
+  <aside class="notes">
+    <ul>
+      <li>Common names are lead to shared understanding and more efficient
+        communication</li>
+      <li>Reduce scope for mistakes and allows you to quickly build up new
+        components</li>
+      <li>You're probably a single application so use your existing CSS
+        preprocessor instead of writing a dedicated branding provider application</li>
+    </ul>
+  </aside>
+</section>
+
+<section>
+  <h1>Thank You</h1>
+
+  <h3>Any Questions?</h3>
+  <p>
+    <small>Ben Scott / <a href="http://twitter.com/BPScott">@BPScott</a></small>
+  </p>
+
+    <p>
+    <small><a href="http://www.reload.me.uk/talk-branding-at-the-bbc">reload.me.uk/talk-branding-at-the-bbc</a></small>
+  </p>
+</section>
