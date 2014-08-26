@@ -1,31 +1,34 @@
-/* line 7, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 7, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 body {
   background-image: none; }
 
-/* line 11, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 11, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .slides > section,
 .reveal .slides > section > section {
   font-size: 1.15em; }
-/* line 15, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 15, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal h1 {
   font-size: 2.60em; }
-/* line 19, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 19, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .highlight {
   padding: 1.2em 0.6em; }
-/* line 23, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 23, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .demo-next-to-highlight {
+  margin: 15px auto; }
+/* line 27, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .grid {
   list-style: none;
   margin: 0;
   padding: 0;
   margin-left: -32px; }
-  /* line 30, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+  /* line 34, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
   .reveal .grid:before, .reveal .grid:after {
     content: " ";
     display: table; }
-  /* line 35, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+  /* line 39, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
   .reveal .grid:after {
     clear: both; }
-/* line 40, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 44, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .grid__item {
   display: block;
   float: left;
@@ -35,42 +38,71 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
-/* line 51, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 55, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .grid__item pre {
   width: 100%;
   margin-left: 0;
   margin-right: 0; }
-/* line 59, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 63, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .one-whole {
   width: 100%; }
-/* line 61, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 65, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .one-half {
   width: 50%; }
-/* line 63, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 67, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .one-third {
   width: 33.333%; }
-/* line 64, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 68, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal .two-thirds {
   width: 66.666%; }
-/* line 67, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 70, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .one-quarter {
+  width: 25%; }
+/* line 73, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal table {
   margin: 0 auto; }
-/* line 68, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 74, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal th {
   font-weight: bold; }
-/* line 69, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 75, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal th, .reveal td {
   padding: 0 64px; }
-/* line 71, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 77, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal blockquote {
   border: none;
   box-shadow: none;
   text-align: left; }
-/* line 77, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 83, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal blockquote + figcaption {
   width: 80%;
   margin: 20px auto;
   text-align: left; }
-/* line 83, /home/ben/projects/talk-structuring-css/source/stylesheets/custom.scss */
+/* line 89, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
 .reveal pre code {
   max-height: 500px; }
+/* line 93, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-box-page {
+  color: #333333;
+  background-color: #ddd; }
+/* line 98, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-box-page a {
+  color: #000077; }
+/* line 102, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-box-page a:hover {
+  color: #0000ff; }
+/* line 106, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-page-bg-ontext {
+  color: #dddddd; }
+/* line 110, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-page-text-onbg {
+  background-color: #333333; }
+/* line 114, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-page-link-onbg {
+  background-color: #000077; }
+/* line 117, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+.reveal .br-page-linkhover-onbg--hover:hover {
+  background-color: #0000ff; }
+
+/* line 122, /home/ben/projects/talk-branding-at-the-bbc/source/stylesheets/custom.scss */
+html.musketeers {
+  background-image: url(images/the-musketeers.png); }
